@@ -23,7 +23,6 @@ autoinstall:
     users:
       - name: ap
         passwd: $6$xyz$ShNnbwk5fmsyVIlzOf8zEg4YdEH2aWRSuY4rJHbzLZRlWcoXbxxoI0hfn0mdXiJCdBJ/lTpKjk.vu5NZOv0UM0
-        plain-txt-passwd: packerubuntu
         groups: [adm, cdrom, dip, plugdev, lxd, sudo]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
