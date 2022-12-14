@@ -1,11 +1,16 @@
-variable "vm_template_name" {
-  type    = string
-  default = "ubuntu-22.04"
+variable "headless" {
+  type = bool
+  default = false
 }
 
-variable "ubuntu_iso_file" {
-  type    = string
-  default = "ubuntu-22.04.1-live-server-amd64.iso"
+variable "iso_url" {
+  type = string
+  default = ""
+}
+
+variable "iso_checksum" {
+  type = string
+  default = ""
 }
 
 source "qemu" "ubuntu-ap" {
@@ -21,8 +26,8 @@ source "qemu" "ubuntu-ap" {
   boot_wait = "5s"
 
   http_directory = "http"
-  iso_url   = "https://releases.ubuntu.com/22.04.1/${var.ubuntu_iso_file}"
-  iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
+  iso_url = "${var.iso_url}"
+  iso_checksum = "${var.iso_checksum}"
   memory = 4096
 
   ssh_password = "password"
@@ -30,16 +35,16 @@ source "qemu" "ubuntu-ap" {
   ssh_timeout = "20m"
   shutdown_command = "echo 'packerubuntu' | sudo -S shutdown -P now"
 
-  headless = false # to see the process, In CI systems set to true
-  accelerator = "kvm" # set to none if no kvm installed
+  headless = var.headless
+  accelerator = "kvm"
   format = "qcow2"
   disk_size = "30G"
-  cpus = 6
+  cpus = 4
 
   qemuargs = [ # Depending on underlying machine the file may have different location
     ["-bios", "/usr/share/OVMF/OVMF_CODE.fd"]
   ] 
-  vm_name = "${var.vm_template_name}"
+  vm_name = "ubuntu-ap"
 }
 
 build {
