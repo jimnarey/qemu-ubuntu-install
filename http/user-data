@@ -1,9 +1,9 @@
 #cloud-config
 autoinstall:
   version: 1
-  locale: en_US
+  locale: en_GB
   keyboard:
-    layout: us
+    layout: gb
   ssh:
     install-server: true
     allow-pw: true
@@ -15,21 +15,16 @@ autoinstall:
     - "sudo efibootmgr -o 0007,0001,0000,0002,0003,0004,0005,0006"
   user-data:
     preserve_hostname: false
-    hostname: packerubuntu
+    hostname: ubuntu-ap
     package_upgrade: true
-    timezone: Europe/Berlin
+    timezone: Europe/London
     chpasswd:
-      expire: true
-      list:
-        - user1:packerubuntu
+      expire: false
     users:
-      - name: admin
-        passwd: $6$xyz$74AlwKA3Z5n2L6ujMzm/zQXHCluA4SRc2mBfO2/O5uUc2yM2n2tnbBMi/IVRLJuKwfjrLZjAT7agVfiK7arSy/
+      - name: ap
+        passwd: $6$xyz$ShNnbwk5fmsyVIlzOf8zEg4YdEH2aWRSuY4rJHbzLZRlWcoXbxxoI0hfn0mdXiJCdBJ/lTpKjk.vu5NZOv0UM0
+        plain-txt-passwd: packerubuntu
         groups: [adm, cdrom, dip, plugdev, lxd, sudo]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /bin/bash
-      - name: user1
-        plain-txt-passwd: packerubuntu
-        lock-passwd: false
         shell: /bin/bash

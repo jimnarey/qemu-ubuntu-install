@@ -8,7 +8,7 @@ variable "ubuntu_iso_file" {
   default = "ubuntu-22.04.1-live-server-amd64.iso"
 }
 
-source "qemu" "custom_image" {
+source "qemu" "ubuntu-ap" {
 
   # Boot Commands when Loading the ISO file with OVMF.fd file (Tianocore) / GrubV2
   boot_command = [
@@ -22,12 +22,11 @@ source "qemu" "custom_image" {
 
   http_directory = "http"
   iso_url   = "https://releases.ubuntu.com/22.04.1/${var.ubuntu_iso_file}"
-  # iso_checksum = "file://https://releases.ubuntu.com/22.04.1/SHA256SUMS"
   iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
   memory = 4096
 
-  ssh_password = "packerubuntu"
-  ssh_username = "admin"
+  ssh_password = "password"
+  ssh_username = "ap"
   ssh_timeout = "20m"
   shutdown_command = "echo 'packerubuntu' | sudo -S shutdown -P now"
 
@@ -44,7 +43,7 @@ source "qemu" "custom_image" {
 }
 
 build {
-  sources = [ "source.qemu.custom_image" ]
+  sources = [ "source.qemu.ubuntu-ap" ]
   provisioner "shell" {
     inline = [ "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for Cloud-Init...'; sleep 1; done" ]
   }
