@@ -33,7 +33,7 @@ source "qemu" "ubuntu-ap" {
   ssh_password = "password"
   ssh_username = "ap"
   ssh_timeout = "20m"
-  shutdown_command = "echo 'packerubuntu' | sudo -S shutdown -P now"
+  shutdown_command = "echo 'ubuntu-ap' | sudo -S shutdown -P now"
 
   headless = var.headless
   accelerator = "kvm"
