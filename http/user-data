@@ -7,12 +7,6 @@ autoinstall:
   ssh:
     install-server: true
     allow-pw: true
-  packages:
-    - qemu-guest-agent
-  late-commands:
-    - "sudo apt update && sudo apt install -y efibootmgr"
-    - "sudo efibootmgr"
-    - "sudo efibootmgr -o 0007,0001,0000,0002,0003,0004,0005,0006"
   user-data:
     preserve_hostname: false
     hostname: ubuntu-ap
